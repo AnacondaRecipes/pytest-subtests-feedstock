@@ -18,16 +18,20 @@ requirements:
   host:
     - pip
     - python >=3.5
-    - setuptools
+    - setuptools >=40.0
     - setuptools_scm
+    - wheel
   run:
-    - pytest >=4.4.0
+    - pytest >=5.3.0
     - python >=3.5
 
 test:
   source_files:
     - tests
+  requires:
+    - pip
   commands:
+    - pip check
     - pytest tests
 
 about:
@@ -36,6 +40,8 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: unittest subTest() support and subtests fixture
+  dev_url: https://github.com/pytest-dev/pytest-subtests
+  doc_url: https://github.com/pytest-dev/pytest-subtests#readme
 
 extra:
   recipe-maintainers:
