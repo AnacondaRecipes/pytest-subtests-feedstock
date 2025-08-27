@@ -10,9 +10,8 @@ source:
   sha256: 7154a8665fd528ee70a76d00216a44d139dc3c9c83521a0f779f7b0ad4f800de
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: true  # [py<39]
 
 requirements:
@@ -22,6 +21,7 @@ requirements:
     - setuptools
     - setuptools_scm
     - setuptools-scm >=6.2.3
+    - wheel
   run:
     - pytest >=7.4
     - python
@@ -30,6 +30,8 @@ requirements:
 test:
   source_files:
     - tests
+  imports:
+    - pytest_subtests
   requires:
     - pip
   commands:
@@ -42,6 +44,7 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: unittest subTest() support and subtests fixture
+  description: unittest subTest() support and subtests fixture
   dev_url: https://github.com/pytest-dev/pytest-subtests
   doc_url: https://github.com/pytest-dev/pytest-subtests#readme
 
