@@ -1,38 +1,42 @@
 {% set name = "pytest-subtests" %}
-{% set version = "0.5.0" %}
+{% set version = "0.14.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5bd1e4bf0eda4c89a6cd42b0ee28e1d2ca0848de3fd67ad8cdd6d559ed00f120
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-','_') }}-{{ version }}.tar.gz
+  sha256: 7154a8665fd528ee70a76d00216a44d139dc3c9c83521a0f779f7b0ad4f800de
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<39]
 
 requirements:
   host:
     - pip
-    - python >=3.5
-    - setuptools >=40.0
-    - setuptools_scm
+    - python
+    - setuptools
+    - setuptools-scm >=6.2.3
     - wheel
   run:
-    - pytest >=5.3.0
-    - python >=3.5
+    - python
+    - attrs >=19.2.0
+    - pytest >=7.4
 
 test:
   source_files:
     - tests
+  imports:
+    - pytest_subtests
   requires:
     - pip
   commands:
     - pip check
-    - pytest tests
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -vv tests
 
 about:
   home: https://github.com/pytest-dev/pytest-subtests
@@ -40,6 +44,7 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: unittest subTest() support and subtests fixture
+  description: unittest subTest() support and subtests fixture
   dev_url: https://github.com/pytest-dev/pytest-subtests
   doc_url: https://github.com/pytest-dev/pytest-subtests#readme
 
