@@ -23,9 +23,9 @@ requirements:
     - setuptools-scm >=6.2.3
     - wheel
   run:
-    - pytest >=7.4
     - python
     - attrs >=19.2.0
+    - pytest >=7.4
 
 test:
   source_files:
