@@ -1,5 +1,5 @@
 {% set name = "pytest-subtests" %}
-{% set version = "0.14.2" %}
+{% set version = "0.15.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-','_') }}-{{ version }}.tar.gz
-  sha256: 7154a8665fd528ee70a76d00216a44d139dc3c9c83521a0f779f7b0ad4f800de
+  sha256: cb495bde05551b784b8f0b8adfaa27edb4131469a27c339b80fd8d6ba33f887c
 
 build:
   number: 0
@@ -24,7 +24,11 @@ requirements:
   run:
     - python
     - attrs >=19.2.0
-    - pytest >=7.4
+    # Package doesn't support pytest >=9
+    # This plugin has been integrated directly into pytest ``9.0``, 
+    # so the plugin itself will no longer be maintained and the repository will be archived.
+    # https://github.com/pytest-dev/pytest-subtests/blob/main/README.rst?plain=1#L27
+    - pytest >=7.4,<9
 
 test:
   source_files:
