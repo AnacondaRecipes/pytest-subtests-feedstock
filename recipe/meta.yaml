@@ -20,7 +20,6 @@ requirements:
     - python
     - setuptools
     - setuptools-scm >=6.2.3
-    - wheel
   run:
     - python
     - attrs >=19.2.0
